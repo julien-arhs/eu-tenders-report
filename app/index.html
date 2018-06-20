@@ -1,0 +1,117 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>eu tenders report</title>
+
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <!-- Place favicon.ico in the root directory -->
+
+  
+
+  <!-- build:css styles/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="/bower_components/datatables.net-dt/css/jquery.dataTables.css" />
+  <!-- endbower -->
+  <!-- endbuild -->
+
+  <!-- build:css styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild -->
+
+  <!-- build:js scripts/vendor/modernizr.js -->
+  <script src="/bower_components/modernizr/modernizr.js"></script>
+  <!-- endbuild -->
+</head>
+
+<body>
+  <!--[if IE]>
+      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+  <div class="content-wrapper">
+    <h1 id="title"></h1>
+    <div class="search-bar">
+      <div class="filter">
+        <label for="authority">Contracting Auhtority</label>
+        <input type="text" id="authority">
+      </div>
+      <div class="filter short">
+        <label for="form">Form</label>
+        <input type="text" id="form">
+      </div>
+      <div class="filter">
+        <label for="notice-title">Title of the notice</label>
+        <input type="text" id="notice-title">
+      </div>
+      <div class="filter">
+        <label for="procurement-type">Procurement type</label>
+        <input type="text" id="procurement-type">
+      </div>
+      <div class="filter short">
+        <label for="framework">Framework agreement</label>
+        <select id="framework">
+          <option value=""></option>
+          <option value="YES">YES</option>
+        </select>
+      </div>
+      <div class="filter">
+        <label for="publication-date">Publication date</label>
+        <input type="text" id="publication-date">
+      </div>
+      <div class="filter short">
+        <label for="contract-item">Contract Item</label>
+        <input type="text" id="contract-item">
+      </div>
+      <div class="filter short">
+        <label for="contract-number">Contract N°</label>
+        <input type="text" id="contract-number">
+      </div>
+      <div class="filter short">
+        <label for="lot-id">Lot ID</label>
+        <input type="text" id="lot-id">
+      </div>
+      <div class="filter">
+        <label for="contractor">Contractor awarded</label>
+        <input type="text" id="contractor">
+      </div>
+      <div class="filter">
+        <label for="awarded-value">Awarded value</label>
+        <input type="text" id="awarded-value">
+      </div>
+      <button id="reset">RESET</button>
+    </div>
+    <table id="report-table" class="dataTable row-border cell-border stripe"> </table>
+
+  </div>
+
+  <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+  <script>
+    (function (b, o, i, l, e, r) {
+    b.GoogleAnalyticsObject = l; b[l] || (b[l] =
+      function () { (b[l].q = b[l].q || []).push(arguments) }); b[l].l = +new Date;
+      e = o.createElement(i); r = o.getElementsByTagName(i)[0];
+      e.src = 'https://www.google-analytics.com/analytics.js';
+      r.parentNode.insertBefore(e, r)
+    }(window, document, 'script', 'ga'));
+    ga('create', 'UA-XXXXX-X'); ga('send', 'pageview');
+  </script>
+
+  <!-- build:js scripts/vendor.js -->
+  <!-- bower:js -->
+  <script src="/bower_components/jquery/dist/jquery.js"></script>
+  <script src="/bower_components/modernizr/modernizr.js"></script>
+  <script src="/bower_components/datatables.net/js/jquery.dataTables.js"></script>
+  <!-- endbower -->
+  <!-- endbuild -->
+  <script src="/bower_components/datatables-rowsgroup/dataTables.rowsGroup.js"></script>
+
+  <!-- build:js scripts/main.js -->
+  <script src="scripts/main.js"></script>
+  <!-- endbuild -->
+</body>
+
+</html>

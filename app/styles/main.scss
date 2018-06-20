@@ -1,0 +1,68 @@
+// bower:scss
+// endbower
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.content-wrapper {
+  margin: 0 30px;
+  // display: flex;
+  // flex-direction: column;
+  // align-items: center;
+}
+
+#title {
+  // margin-bottom: 0px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+  border-bottom: solid 2px #000;
+  padding-bottom: 20px;
+  >*+* {
+    margin-top: 15px;
+    margin-left: 15px;
+  }
+  label {
+    /* font-weight: bold; */
+    margin-bottom: 6px;
+  }
+}
+
+.filter {
+  display: flex;
+  flex-direction: column;
+  &.short {
+    width: 80px;
+  }
+}
+
+input, select {
+  line-height: 20px;
+  font-size: 14px;
+  /* border-radius: 3px; */
+}
+
+#reset {
+  margin-left: 30px;
+  border-radius: 3px;
+  line-height: 30px;
+  background-color: #EEE;
+}
+
+#report-table_wrapper {
+  width: 100%;
+}
+
+#report-table_filter {
+  display: none !important;
+}
+
+#report-table {
+  margin: 0;
+  width: 100%;
+}
