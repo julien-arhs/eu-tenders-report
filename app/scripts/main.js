@@ -1,19 +1,24 @@
 function init() {
 
+  // Data source
+  $('#source-select').on('change', event => {
+    loadReportData(event.target.value);
+  });
+
   // Filters
   const filters = [];
-  filters[0] = $('input#authority');
-  filters[1] = $('input#form');
-  filters[2] = $('input#notice-title');
-  filters[3] = $('input#procurement-type');
-  filters[4] = $('select#framework');
-  filters[5] = $('input#publication-date');
-  // filters[7] = $('input#contract-item');
-  // filters[8] = $('input#contract-number');
-  // filters[9] = $('input#lot-id');
-  filters[10] = $('input#contract-title');
-  filters[12] = $('input#contractor');
-  filters[13] = $('input#awarded-value');
+  filters[1] = $('input#authority');
+  filters[2] = $('input#form');
+  filters[3] = $('input#notice-title');
+  filters[4] = $('input#procurement-type');
+  filters[5] = $('select#framework');
+  filters[6] = $('input#publication-date');
+  // filters[8] = $('input#contract-item');
+  // filters[9] = $('input#contract-number');
+  // filters[10] = $('input#lot-id');
+  filters[11] = $('input#contract-title');
+  filters[13] = $('input#contractor');
+  filters[14] = $('input#awarded-value');
 
   for (let i = 0; i < filters.length; i++) {
     if (filters[i]) {
@@ -37,26 +42,19 @@ function init() {
   });
 
   // Init table
-  initTable('test');
+  // initTable();
+  loadReportData(getCurrentDataSource());
   // setTimeout(() => {
-  //   getTable().destroy();
-  //   initTable('test');
-  // }, 1000);
+  //   loadReportData('test');
+  // }, 3000);
 }
 
-function initTable(reportName) {
+function initTable() {
   $('#report-table').DataTable({
-    ajax: {
-      url: 'data/' + reportName +'.json',
-      dataSrc: ( json ) => {
-        for ( let i=0, end=json.data.length ; i<end ; i++ ) {
-          json.data[i][6] = '<a href="'+json.data[i][6]+'" target="_blank">'+json.data[i][6]+'</a>';
-        }
-        $('#title').html(json.title);
-        return json.data;
-      }
-    },
     columns: [
+      {
+        title: ''
+      },
       {
         title: 'Contracting Authority name'
       },
@@ -100,33 +98,73 @@ function initTable(reportName) {
         title: 'Awarded Value (€)'
       }
     ],
+    columnDefs: [
+      {
+        targets: 0,
+        visible: false
+      },
+      {
+        targets: 7,
+        render: (data, type, row) => {
+          return '<a href="' + data + '" target="_blank">' + data + '</a>';
+        }
+      }
+    ],
     rowsGroup: [
-      0,
       1,
       2,
       3,
       4,
       5,
-      6
+      6,
+      7
     ],
+    // rowGroup: {
+    //   dataSrc: 0
+    // },
+    // drawCallback: function (settings) {
+    //   console.log('====== drawCallback', !!$('tr.group').length);
+    //   if (!!$('tr.group').length) {
+    //     return;
+    //   }
+    //   const api = this.api();
+    //   const rows = api.rows().nodes();
+    //   let last = null;
+    //   api.column(0).data().each(function (group, i) {
+    //     console.log('>', i);
+    //     if (last !== group) {
+    //       console.log('before', $(rows).eq(i).before());
+    //       $(rows).eq(i).before(
+    //         '<tr class="group"><td colspan="15">' + group + '</td></tr>'
+    //       );
+    //       last = group;
+    //     }
+    //   });
+    // },
     paging: false
   });
 }
 
-function getData(url) {
-  return (function () {
-    var json = null;
-    $.ajax({
-      'async': false,
-      'global': false,
-      'url': url,
-      'dataType': 'json',
-      'success': function (data) {
-        json = data;
-      }
-    });
-    return json;
-  })();
+function loadReportData(sourceId) {
+  console.log('> initTable', $.fn.DataTable.isDataTable('#report-table'))
+  if ($.fn.DataTable.isDataTable('#report-table')) {
+    getTable().clear().draw();
+  }
+  else {
+    initTable();
+  }
+  $.ajax({
+    url: 'data/' + sourceId + '.json',
+  }).done(report => {
+    // const data = report.data;
+    // // $('#title').html(report.title);
+    // // Format data
+    // for (let i = 0, end = data.length; i < end; i++) {
+    //   data[i][7] = '<a href="' + data[i][7] + '" target="_blank">' + data[i][7] + '</a>';
+    // }
+    getTable().rows.add(report.data);
+    getTable().columns.adjust().draw();
+  });
 }
 
 function filterColumn(i, elem) {
@@ -138,6 +176,10 @@ function filterColumn(i, elem) {
 
 function getTable() {
   return $('#report-table').DataTable();
+}
+
+function getCurrentDataSource() {
+  return $('#source-select').val();
 }
 
 $(document).ready(init);

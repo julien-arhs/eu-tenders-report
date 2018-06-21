@@ -1,7 +1,7 @@
 {
-  "title": "Court of Justice of the European Union",
   "data": [
     [
+      "Court of Justice of the European Union",
       "Court of Justice of the European Union, direction générale des infrastructures, direction des bâtiments",
       "3",
       "Improvement and alteration works for secure premises",
@@ -19,6 +19,7 @@
     ],
     [
       "Court of Justice of the European Union",
+      "Court of Justice of the European Union",
       "F03",
       "Improvement and repair of architectural features and of finishings — installation of technical equipment",
       "Open procedure",
@@ -34,6 +35,7 @@
       "0"
     ],
     [
+      "Court of Justice of the European Union",
       "Court of Justice of the European Union",
       "F03",
       "Improvement and repair of architectural features and of finishings — installation of technical equipment",
@@ -51,6 +53,7 @@
     ],
     [
       "Court of Justice of the European Union",
+      "Court of Justice of the European Union",
       "F03",
       "Improvement and repair of architectural features and of finishings — installation of technical equipment",
       "Open procedure",
@@ -66,6 +69,7 @@
       "€ 1 595 788,88"
     ],
     [
+      "Court of Justice of the European Union",
       "Court of Justice of the European Union",
       "F03",
       "Improvement and repair of architectural features and of finishings — installation of technical equipment",
@@ -83,6 +87,7 @@
     ],
     [
       "Court of Justice of the European Union",
+      "Court of Justice of the European Union",
       "F03",
       "Supply, installation and maintenance of smoking booths for the Court of Justice of the European Union",
       "Open procedure",
@@ -98,6 +103,7 @@
       "€ 247 060"
     ],
     [
+      "Court of Justice of the European Union",
       "Court of Justice of the European Union",
       "F03",
       "Supply of subscriptions to specialist periodicals",
@@ -115,6 +121,7 @@
     ],
     [
       "Court of Justice of the European Union",
+      "Court of Justice of the European Union",
       "F03",
       "Supply of subscriptions to specialist periodicals",
       "Open procedure",
@@ -130,6 +137,7 @@
       "€ 130 000"
     ],
     [
+      "Court of Justice of the European Union",
       "Court of Justice of the European Union",
       "F03",
       "Supply of subscriptions to specialist periodicals",
@@ -147,6 +155,7 @@
     ],
     [
       "Court of Justice of the European Union",
+      "Court of Justice of the European Union",
       "F03",
       "Supply of subscriptions to specialist periodicals",
       "Open procedure",
@@ -160,6 +169,108 @@
       "3",
       "Houtschild International Booksellers",
       "€ 130 000"
+    ],
+    [
+      "European Parliament",
+      "European Parliament, Directorate-General for Translation",
+      "3",
+      "Translation services into Romanian",
+      "Open procedure",
+      "YES",
+      "27/01/2016",
+      "http://ted.europa.eu/udl?uri=TED:NOTICE:026815-2016:TEXT:EN:HTML",
+      "1",
+      "RO/2016/MAIN",
+      "",
+      "",
+      "10",
+      "SC International Languages SRL",
+      "€ 1 523 750"
+    ],
+    [
+      "European Parliament",
+      "European Parliament, Directorate-General for Translation",
+      "3",
+      "Translation services into Romanian",
+      "Open procedure",
+      "YES",
+      "27/01/2016",
+      "http://ted.europa.eu/udl?uri=TED:NOTICE:026815-2016:TEXT:EN:HTML",
+      "2",
+      "RO/2016/S01",
+      "",
+      "",
+      "10",
+      "S.C. Euroscript-Certitude S.R.L.",
+      "€ 1 523 750"
+    ],
+    [
+      "European Parliament",
+      "European Parliament, Directorate-General for Translation",
+      "3",
+      "Translation services into Romanian",
+      "Open procedure",
+      "YES",
+      "27/01/2016",
+      "http://ted.europa.eu/udl?uri=TED:NOTICE:026815-2016:TEXT:EN:HTML",
+      "3",
+      "RO/2016/S02",
+      "",
+      "",
+      "10",
+      "P. & K. Barbopoulos O.E. — Paspartu Translation Services",
+      "€ 1 523 750"
+    ],
+    [
+      "European Parliament",
+      "European Parliament, Directorate-General for Translation",
+      "3",
+      "Translation services into Polish",
+      "Open procedure",
+      "YES",
+      "27/01/2016",
+      "http://ted.europa.eu/udl?uri=TED:NOTICE:026816-2016:TEXT:EN:HTML",
+      "1",
+      "PL/2016/MAIN",
+      "",
+      "",
+      "10",
+      "euroscript Polska Sp. z o.o.",
+      "€ 1 657 650"
+    ],
+    [
+      "European Parliament",
+      "European Parliament, Directorate-General for Translation",
+      "3",
+      "Translation services into Polish",
+      "Open procedure",
+      "YES",
+      "27/01/2016",
+      "http://ted.europa.eu/udl?uri=TED:NOTICE:026816-2016:TEXT:EN:HTML",
+      "2",
+      "PL/2016/S01",
+      "",
+      "",
+      "10",
+      "Presto — Překladatelské Centrum s.r.o.",
+      "€ 1 657 650"
+    ],
+    [
+      "European Parliament",
+      "European Parliament, DG ITEC-ESIO-INFRAMGMT",
+      "F03",
+      "PE-ITEC-TVDIS14 — Call for tender for the integration of solutions, including the supply of equipment and the provision of related services, for European Parliament's TV distribution infrastructure and systems",
+      "Open procedure",
+      "YES",
+      "20/05/2016",
+      "http://ted.europa.eu/udl?uri=TED:NOTICE:171531-2016:TEXT:EN:HTML",
+      "1",
+      "1",
+      "",
+      "PE-ITEC-TVDIS14",
+      "-1",
+      "Not awarded",
+      "€ 0"
     ]
   ]
 }

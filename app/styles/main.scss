@@ -1,15 +1,21 @@
 // bower:scss
 // endbower
+$primary-color: #333;
+$primary-light-color: #AAA;
 
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .content-wrapper {
-  margin: 0 30px;
-  // display: flex;
+  margin: 0 30px; // display: flex;
   // flex-direction: column;
   // align-items: center;
+}
+
+#source-select {
+  font-size: 22px;
+  margin: 20px 0;
 }
 
 #title {
@@ -41,7 +47,8 @@ body {
   }
 }
 
-input, select {
+input,
+select {
   line-height: 20px;
   font-size: 14px;
   /* border-radius: 3px; */
@@ -65,4 +72,50 @@ input, select {
 #report-table {
   margin: 0;
   width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 10px 15px;
+  font-size: 14px;
+}
+
+th {
+  background-color: $primary-color;
+  // background-color: #333;
+  color: #FFF;
+  font-weight: normal !important;
+  // cursor: pointer;
+}
+
+td {
+  border: solid 1px #CCC;
+  color: #333;
+}
+
+tr {
+  &.group {
+    text-align: center;
+    td {
+      padding: 10px 0;
+      background-color: $primary-light-color;
+      color: #000; 
+      border-color: $primary-light-color;
+      // border-top-color: #FFF;
+      // border-left-color: $primary-color;
+      // border-right-color: #FFF;
+      // border-left-color: #FFF;
+    }
+  }
+  &.odd {
+    td {
+      background-color: #FFF;
+    }
+  }
+  &.even {
+    td {
+      background-color: #F6F6F6;
+    }
+  }
 }

@@ -33,7 +33,13 @@
     <![endif]-->
 
   <div class="content-wrapper">
-    <h1 id="title"></h1>
+    <!-- <h1 id="title"></h1> -->
+    <!-- Select -->
+    <select id="source-select">
+      <option value="eui">European Institutions</option>
+      <option value="op-ce">Publications office & European Commission</option>
+    </select>
+    <!-- Filters -->
     <div class="search-bar">
       <div class="filter">
         <label for="authority">Contracting Auhtority</label>
@@ -88,21 +94,9 @@
       </div>
       <button id="reset">RESET</button>
     </div>
-    <table id="report-table" class="dataTable row-border cell-border stripe"> </table>
+    <table id="report-table" class="dataTable"> </table>
 
   </div>
-
-  <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-  <script>
-    (function (b, o, i, l, e, r) {
-    b.GoogleAnalyticsObject = l; b[l] || (b[l] =
-      function () { (b[l].q = b[l].q || []).push(arguments) }); b[l].l = +new Date;
-      e = o.createElement(i); r = o.getElementsByTagName(i)[0];
-      e.src = 'https://www.google-analytics.com/analytics.js';
-      r.parentNode.insertBefore(e, r)
-    }(window, document, 'script', 'ga'));
-    ga('create', 'UA-XXXXX-X'); ga('send', 'pageview');
-  </script>
 
   <!-- build:js scripts/vendor.js -->
   <!-- bower:js -->
@@ -112,6 +106,7 @@
   <!-- endbower -->
   <!-- endbuild -->
   <script src="/bower_components/datatables-rowsgroup/dataTables.rowsGroup.js"></script>
+  <script src="/bower_components/datatables-rowgroup/js/dataTables.rowGroup.js"></script>
 
   <!-- build:js scripts/main.js -->
   <script src="scripts/main.js"></script>
