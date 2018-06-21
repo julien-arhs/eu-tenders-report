@@ -23,14 +23,14 @@ function init() {
   for (let i = 0; i < filters.length; i++) {
     if (filters[i]) {
       ((index, elem) => {
-        filters[i].on('keyup click change', () => {
+        filters[i].on('keyup change', () => {
           filterColumn(index, elem);
         });
       })(i, filters[i]);
     }
   }
-  $('input#min-value, input#max-value').on('keyup click change', () => {
-    filterColumnValue();
+  $('input#min-value, input#max-value').on('keyup change', () => {
+    getTable().draw();
   });
 
   // Reset
@@ -46,9 +46,7 @@ function init() {
 function initTable() {
   $('#report-table').DataTable({
     columns: [
-      {
-        title: ''
-      },
+      {},
       {
         title: 'Contracting Authority name'
       },
@@ -149,6 +147,25 @@ function initTable() {
     // },
     paging: false
   });
+  $.fn.dataTable.ext.search.push(
+    function (settings, data, dataIndex) {
+      // console.log('>>>> ', data, getTable().rows(dataIndex).data()[0]);
+      const minFilter = parseFloat($('input#min-value').val());
+      const maxFilter = parseFloat($('input#max-value').val());
+      const row = getTable().rows(dataIndex).data()[0];
+      const minValue = row[14] || 0;
+      const maxValue = row[15] || 0;
+      let match = true;
+      if (!isNaN(minFilter)) {
+        match = minValue >= minFilter;
+      }
+      if (match && !isNaN(maxFilter)) {
+        match = maxValue <= maxFilter;
+      }
+      // console.log('> ['+dataIndex+']', minFilter, minValue, '/', maxFilter, maxValue, '=>', match);
+      return match;
+    }
+  );
 }
 
 function loadReportData(sourceId) {
@@ -178,12 +195,6 @@ function filterColumn(i, elem) {
   getTable().column(i).search(
     elem.val()
   ).draw();
-}
-
-function filterColumnValue() {
-  const min = $('input#min-value').val();
-  const max = $('input#max-value').val();
-  console.log('> filterColumnValue', min, max)
 }
 
 function getTable() {
