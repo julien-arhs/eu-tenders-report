@@ -18,7 +18,7 @@ function init() {
   // filters[10] = $('input#lot-id');
   filters[11] = $('input#contract-title');
   filters[13] = $('input#contractor');
-  filters[14] = $('input#awarded-value');
+  // filters[14] = $('input#awarded-value');
 
   for (let i = 0; i < filters.length; i++) {
     if (filters[i]) {
@@ -29,24 +29,18 @@ function init() {
       })(i, filters[i]);
     }
   }
+  $('input#min-value, input#max-value').on('keyup click change', () => {
+    filterColumnValue();
+  });
 
   // Reset
   $('#reset').on('click', () => {
-    for (let i = 0; i < filters.length; i++) {
-      if (filters[i]) {
-        filters[i].val('');
-        filterColumn(i, filters[i]);
-      }
-    }
-    getTable().draw();
+    $('.filter input').val('');
+    getTable().columns().search('').draw();
   });
 
   // Init table
-  // initTable();
   loadReportData(getCurrentDataSource());
-  // setTimeout(() => {
-  //   loadReportData('test');
-  // }, 3000);
 }
 
 function initTable() {
@@ -107,6 +101,18 @@ function initTable() {
         targets: 7,
         render: (data, type, row) => {
           return '<a href="' + data + '" target="_blank">' + data + '</a>';
+        }
+      },
+      {
+        targets: 14,
+        render: (data, type, row) => {
+          const min = row[14];
+          const max = row[15];
+          const currency = row[16];
+          if (!min && !max) {
+            return '-';
+          }
+          return currency + ' ' + formatAmount(min) + (min !== max ? '-' + formatAmount(max) : '');
         }
       }
     ],
@@ -174,12 +180,22 @@ function filterColumn(i, elem) {
   ).draw();
 }
 
+function filterColumnValue() {
+  const min = $('input#min-value').val();
+  const max = $('input#max-value').val();
+  console.log('> filterColumnValue', min, max)
+}
+
 function getTable() {
   return $('#report-table').DataTable();
 }
 
 function getCurrentDataSource() {
   return $('#source-select').val();
+}
+
+function formatAmount(value) {
+  return value.toString().replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
 }
 
 $(document).ready(init);
