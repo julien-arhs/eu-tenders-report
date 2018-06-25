@@ -45,6 +45,7 @@ function init() {
 
 function initTable() {
   $('#report-table').DataTable({
+    dom: 'Bfrtip',
     columns: [
       {},
       {
@@ -93,6 +94,7 @@ function initTable() {
     columnDefs: [
       {
         targets: 0,
+        numeric: true,
         visible: false
       },
       {
@@ -103,6 +105,7 @@ function initTable() {
       },
       {
         targets: 14,
+        type: 'amount',
         render: (data, type, row) => {
           const min = row[14];
           const max = row[15];
@@ -145,8 +148,28 @@ function initTable() {
     //     }
     //   });
     // },
+    buttons: [
+      'copyHtml5',
+      'excel'
+    ],
     paging: false
   });
+  // Amount sorting
+  $.extend($.fn.dataTableExt.oSort, {
+    'amount-pre': function (a) {
+      a = (a === '-') ? 0 : a.replace(/[^\d\-\.]/g, '');
+      return parseFloat(a);
+    },
+
+    'amount-asc': function (a, b) {
+      return a - b;
+    },
+
+    'amount-desc': function (a, b) {
+      return b - a;
+    }
+  });
+  // Apply filtering on amount min/max
   $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
       // console.log('>>>> ', data, getTable().rows(dataIndex).data()[0]);

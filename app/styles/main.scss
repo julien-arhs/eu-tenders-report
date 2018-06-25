@@ -1,4 +1,5 @@
 // bower:scss
+@import "bower_components/datatables-buttons/css/buttons.dataTables.scss";
 // endbower
 $primary-color: #333;
 $primary-light-color: #AAA;
@@ -8,7 +9,7 @@ body {
 }
 
 .content-wrapper {
-  margin: 0 30px; // display: flex;
+  margin: 0 20px; // display: flex;
   // flex-direction: column;
   // align-items: center;
 }
@@ -26,7 +27,7 @@ body {
   display: flex;
   align-items: flex-end;
   flex-wrap: wrap;
-  border-bottom: solid 2px #000;
+  border-bottom: solid 2px #333;
   padding-bottom: 20px;
   >*+* {
     margin-top: 15px;
@@ -52,8 +53,8 @@ body {
 input,
 select {
   line-height: 20px;
-  font-size: 14px;
-  /* border-radius: 3px; */
+  font-size: 14px; // border-radius: 3px;
+  box-shadow: none;
 }
 
 #reset {
@@ -61,11 +62,14 @@ select {
   margin-left: 30px;
   border-radius: 3px;
   line-height: 30px;
-  background-color: #EEE;
+  background-color: #444;
+  color: #fff;
+  cursor: pointer;
 }
 
 #report-table_wrapper {
   width: 100%;
+  overflow-x: auto;
 }
 
 #report-table_filter,
@@ -79,23 +83,50 @@ select {
   border-collapse: collapse;
 }
 
+.dt-button {
+  margin: 10px 0 !important;
+  &+* {
+    margin-left: 8px !important;
+  }
+}
+
 th,
 td {
-  padding: 10px 15px;
+  padding: 12px !important;
   font-size: 14px;
 }
 
 th {
-  background-color: $primary-color;
-  // background-color: #333;
+  background-color: $primary-color; // background-color: #333;
   color: #FFF;
-  font-weight: normal !important;
-  // cursor: pointer;
+  font-weight: normal !important; // cursor: pointer;
+  &:first-child {
+    border-top-left-radius: 2px;
+  }
+  &:last-child {
+    border-top-right-radius: 2px;
+  }
 }
 
 td {
-  border: solid 1px #CCC;
+  // border: solid 1px #EEE;
   color: #333;
+  border-top: solid 1px #DDD;
+  &:nth-child(1) {
+    font-weight: bold;
+  }
+  &:nth-child(14) {
+    text-align: right;
+  }
+  &:nth-child(1),
+  &[rowspan]:nth-child(1)~td {
+    border-top: solid 1px #777 !important;
+  }
+  &:nth-child(1),
+  &:nth-child(2),
+  &:nth-child(7) {
+    border-right: solid 1px #DDD;
+  }
 }
 
 tr {
@@ -104,9 +135,8 @@ tr {
     td {
       padding: 10px 0;
       background-color: $primary-light-color;
-      color: #000; 
-      border-color: $primary-light-color;
-      // border-top-color: #FFF;
+      color: #000;
+      border-color: $primary-light-color; // border-top-color: #FFF;
       // border-left-color: $primary-color;
       // border-right-color: #FFF;
       // border-left-color: #FFF;
