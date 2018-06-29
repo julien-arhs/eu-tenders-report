@@ -1,14 +1,33 @@
 function init() {
 
   // Data source
-  $('#source-select').on('change', event => {
+  const files = [
+    'Agencies',
+    'European Commission',
+    'Publications office of the European Union'
+  ];
+  const sourceSelect = $('#source-select');
+  for (let value of files) {
+    sourceSelect.append($("<option>")
+      .val(value)
+      .html(value)
+    );
+  }
+  sourceSelect.on('change', event => {
     loadReportData(event.target.value);
+  });
+  const amountRange = $('#amount-range');
+  $('#amount-slider').slider({
+    slide: function (event, ui) {
+      amountRange.val(formatAmount(ui.values[0]) + " - " + formatAmount(ui.values[1]));
+      getTable().draw();
+    }
   });
 
   // Filters
   const filters = [];
   filters[1] = $('input#authority');
-  filters[2] = $('input#form');
+  // filters[2] = $('input#form');
   filters[3] = $('input#notice-title');
   filters[4] = $('input#procurement-type');
   filters[5] = $('select#framework');
@@ -29,13 +48,14 @@ function init() {
       })(i, filters[i]);
     }
   }
-  $('input#min-value, input#max-value').on('keyup change', () => {
-    getTable().draw();
-  });
 
   // Reset
   $('#reset').on('click', () => {
-    $('.filter input').val('');
+    $('.filter-input').val('');
+    // Reset slider
+    const minAmount = $('#amount-slider').slider('option', 'min');
+    const maxAmount = $('#amount-slider').slider('option', 'max');
+    setFilterRangeAmount(minAmount, maxAmount);
     getTable().columns().search('').draw();
   });
 
@@ -45,15 +65,13 @@ function init() {
 
 function initTable() {
   $('#report-table').DataTable({
-    dom: 'Bfrtip',
+    dom: 'Bptip',
     columns: [
       {},
       {
         title: 'Contracting Authority name'
       },
-      {
-        title: 'Form'
-      },
+      {},
       {
         title: 'Title of the notice'
       },
@@ -94,11 +112,23 @@ function initTable() {
     columnDefs: [
       {
         targets: 0,
-        numeric: true,
         visible: false
       },
       {
+        targets: 1,
+        className: 'authority'
+      },
+      {
+        targets: 2,
+        visible: false
+      },
+      {
+        targets: 4,
+        className: 'procurement'
+      },
+      {
         targets: 7,
+        className: 'link',
         render: (data, type, row) => {
           return '<a href="' + data + '" target="_blank">' + data + '</a>';
         }
@@ -106,6 +136,7 @@ function initTable() {
       {
         targets: 14,
         type: 'amount',
+        className: 'amount',
         render: (data, type, row) => {
           const min = row[14];
           const max = row[15];
@@ -126,6 +157,7 @@ function initTable() {
       6,
       7
     ],
+    /* Plugin to handle colspan (rowGroup.js), not compatible with the plugin to handle rowspan (rowsGroup)  */
     // rowGroup: {
     //   dataSrc: 0
     // },
@@ -152,7 +184,8 @@ function initTable() {
       'copyHtml5',
       'excel'
     ],
-    paging: false
+    pageLength: 20,
+    paging: true
   });
   // Amount sorting
   $.extend($.fn.dataTableExt.oSort, {
@@ -173,8 +206,8 @@ function initTable() {
   $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
       // console.log('>>>> ', data, getTable().rows(dataIndex).data()[0]);
-      const minFilter = parseFloat($('input#min-value').val());
-      const maxFilter = parseFloat($('input#max-value').val());
+      const minFilter = getMinAmountFilter();
+      const maxFilter = getMaxAmountFilter()
       const row = getTable().rows(dataIndex).data()[0];
       const minValue = row[14] || 0;
       const maxValue = row[15] || 0;
@@ -202,15 +235,53 @@ function loadReportData(sourceId) {
   $.ajax({
     url: 'data/' + sourceId + '.json',
   }).done(report => {
-    // const data = report.data;
-    // // $('#title').html(report.title);
-    // // Format data
-    // for (let i = 0, end = data.length; i < end; i++) {
-    //   data[i][7] = '<a href="' + data[i][7] + '" target="_blank">' + data[i][7] + '</a>';
-    // }
+    initAmountSlider(report.data);
     getTable().rows.add(report.data);
     getTable().columns.adjust().draw();
   });
+}
+
+function initAmountSlider(data) {
+  // Look for min and max amount
+  let min = Infinity;
+  let max = 0;
+  let minValue, maxValue;
+  for (let row of data) {
+    minValue = row[14];
+    maxValue = row[15];
+    if (minValue < min) {
+      min = minValue;
+    }
+    if (maxValue > max) {
+      max = maxValue;
+    }
+  }
+  const step = 50000;
+  // Adjust max to superior step, otherwise the highest value is not included (shitty)
+  max = Math.ceil(max / step) * step;
+  console.log('> FACTOR', max);
+  $('#amount-slider').slider({
+    range: true,
+    step: step,
+    min: min,
+    max: max
+  });
+  setFilterRangeAmount(min, max);
+}
+
+function setFilterRangeAmount(minValue, maxValue) {
+  $('#amount-slider').slider({
+    values: [minValue, maxValue]
+  });
+  $('#amount-range').val(formatAmount(getMinAmountFilter(minValue)) + ' - ' + formatAmount(getMaxAmountFilter(maxValue)));
+}
+
+function getMinAmountFilter() {
+  return $('#amount-slider').slider('values', 0);
+}
+
+function getMaxAmountFilter() {
+  return $('#amount-slider').slider('values', 1);
 }
 
 function filterColumn(i, elem) {

@@ -10,12 +10,11 @@
   <!-- <link rel="apple-touch-icon" href="apple-touch-icon.png"> -->
   <!-- Place favicon.ico in the root directory -->
 
-  
-
   <!-- build:css styles/vendor.css -->
   <!-- bower:css -->
   <link rel="stylesheet" href="/bower_components/datatables.net-dt/css/jquery.dataTables.css" />
   <link rel="stylesheet" href="/bower_components/datatables/media/css/jquery.dataTables.css" />
+  <link rel="stylesheet" href="/bower_components/jquery-ui-slider/jquery-ui.css" />
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -37,66 +36,60 @@
     <!-- <h1 id="title"></h1> -->
     <!-- Select -->
     <select id="source-select">
-      <option value="eui">European Institutions</option>
-      <option value="op-ce">Publications office & European Commission</option>
     </select>
     <!-- Filters -->
     <div class="search-bar">
       <div class="filter">
         <label for="authority">Contracting Auhtority</label>
-        <input type="text" id="authority">
-      </div>
-      <div class="filter short">
-        <label for="form">Form</label>
-        <input type="text" id="form">
+        <input type="text" id="authority" class="filter-input">
       </div>
       <div class="filter">
         <label for="notice-title">Title of the notice</label>
-        <input type="text" id="notice-title">
+        <input type="text" id="notice-title" class="filter-input">
       </div>
       <div class="filter">
         <label for="procurement-type">Procurement type</label>
-        <input type="text" id="procurement-type">
+        <input type="text" id="procurement-type" class="filter-input">
       </div>
       <div class="filter short">
         <label for="framework">Framework agreement</label>
-        <select id="framework">
+        <select id="framework" class="filter-input">
           <option value=""></option>
           <option value="YES">YES</option>
         </select>
       </div>
       <div class="filter">
         <label for="publication-date">Publication date</label>
-        <input type="text" id="publication-date">
+        <input type="text" id="publication-date" class="filter-input">
       </div>
       <!-- <div class="filter short">
         <label for="contract-item">Contract Item</label>
-        <input type="text" id="contract-item">
+        <input type="text" id="contract-item" class="filter-input">
       </div>
       <div class="filter short">
         <label for="contract-number">Contract N°</label>
-        <input type="text" id="contract-number">
+        <input type="text" id="contract-number" class="filter-input">
       </div>
       <div class="filter short">
         <label for="lot-id">Lot ID</label>
-        <input type="text" id="lot-id">
+        <input type="text" id="lot-id" class="filter-input">
       </div> -->
       <div class="filter">
         <label for="contract-title">Contract Title</label>
-        <input type="text" id="contract-title">
+        <input type="text" id="contract-title" class="filter-input">
       </div>
       <div class="filter">
         <label for="contractor">Contractor awarded</label>
-        <input type="text" id="contractor">
+        <input type="text" id="contractor" class="filter-input">
       </div>
       <div class="filter amount">
-        <label for="min-value">Min. value</label>
-        <input type="number" id="min-value">
+        <div class="amount-label">
+          <label for="amount-range">Amount range (€) </label>
+          <input type="text" id="amount-range" readonly>
+        </div>
+        <div id="amount-slider"></div>
       </div>
-      <div class="filter amount">
-        <label for="max-value">Max. value</label>
-        <input type="number" id="max-value">
-      </div>
+
       <button id="reset">RESET</button>
     </div>
     <table id="report-table" class="dataTable"> </table>
@@ -108,6 +101,8 @@
   <script src="/bower_components/jquery/dist/jquery.js"></script>
   <script src="/bower_components/modernizr/modernizr.js"></script>
   <script src="/bower_components/datatables.net/js/jquery.dataTables.js"></script>
+  <script src="/bower_components/datatables-rowsgroup/dataTables.rowsGroup.js"></script>
+  <script src="/bower_components/datatables-rowgroup/js/dataTables.rowGroup.js"></script>
   <script src="/bower_components/datatables/media/js/jquery.dataTables.js"></script>
   <script src="/bower_components/datatables-buttons/js/dataTables.buttons.js"></script>
   <script src="/bower_components/datatables-buttons/js/buttons.colVis.js"></script>
@@ -115,10 +110,9 @@
   <script src="/bower_components/datatables-buttons/js/buttons.html5.js"></script>
   <script src="/bower_components/datatables-buttons/js/buttons.print.js"></script>
   <script src="/bower_components/jszip/dist/jszip.js"></script>
+  <script src="/bower_components/jquery-ui-slider/jquery-ui.js"></script>
   <!-- endbower -->
   <!-- endbuild -->
-  <script src="/bower_components/datatables-rowsgroup/dataTables.rowsGroup.js"></script>
-  <script src="/bower_components/datatables-rowgroup/js/dataTables.rowGroup.js"></script>
 
   <!-- build:js scripts/main.js -->
   <script src="scripts/main.js"></script>

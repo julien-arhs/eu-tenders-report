@@ -72,7 +72,10 @@ gulp.task('html', ['styles', 'scripts'], () => {
 });
 
 gulp.task('images', () => {
-  return gulp.src('app/images/**/*')
+  return gulp.src([
+    'app/images/**/*', 
+    'bower_components/datatables/media/images/*'
+  ])
     .pipe($.cache($.imagemin()))
     .pipe(gulp.dest('dist/images'));
 });

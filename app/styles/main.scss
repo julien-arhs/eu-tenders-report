@@ -29,25 +29,47 @@ body {
   flex-wrap: wrap;
   border-bottom: solid 2px #333;
   padding-bottom: 20px;
-  >*+* {
-    margin-top: 15px;
-    margin-left: 15px;
-  }
-  label {
-    font-size: 0.9em;
-    margin-bottom: 6px;
+
+  .filter {
+    display: flex;
+    flex-direction: column;
+    label {
+      font-size: 0.9em;
+      margin-bottom: 6px;
+    }
+    &+* {
+      margin-top: 15px;
+      margin-left: 15px;
+    }
+    &.short {
+      width: 75px;
+    }
+    &.amount {
+      margin-left: 25px;
+    }
   }
 }
 
-.filter {
+.amount-label {
+  margin-bottom: 13px;
   display: flex;
-  flex-direction: column;
-  &.short {
-    width: 80px;
+  align-items: center;
+  label {
+    margin-bottom: 2px !important;
   }
-  &.amount {
-    width: 90px;
+  #amount-range {
+    margin-left: 8px;
+    flex: 1;
+    border: 0; // font-weight: bold;
+    color: #0c00b6;
   }
+}
+
+#amount-slider {
+  position: relative;
+  top: -3px;
+  width: 280px;
+  margin-top: 0;
 }
 
 input,
@@ -83,8 +105,13 @@ select {
   border-collapse: collapse;
 }
 
+#report-table_paginate {
+  margin: 12px 0 !important;
+  padding: 0 !important;
+}
+
 .dt-button {
-  margin: 10px 0 !important;
+  margin: 12px 0 !important;
   &+* {
     margin-left: 8px !important;
   }
@@ -112,19 +139,26 @@ td {
   // border: solid 1px #EEE;
   color: #333;
   border-top: solid 1px #DDD;
-  &:nth-child(1) {
+  &.authority {
     font-weight: bold;
   }
-  &:nth-child(14) {
-    text-align: right;
+  &.form {
+    min-width: 50px;
   }
-  &:nth-child(1),
-  &[rowspan]:nth-child(1)~td {
+  &.procurement {
+    min-width: 100px;
+  }
+  &.amount {
+    text-align: right;
+    min-width: 110px;
+  }
+  &.authority,
+  &[rowspan].authority~td {
     border-top: solid 1px #777 !important;
   }
-  &:nth-child(1),
-  &:nth-child(2),
-  &:nth-child(7) {
+  &.authority,
+  &.form,
+  &.link {
     border-right: solid 1px #DDD;
   }
 }

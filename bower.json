@@ -9,10 +9,19 @@
     "datatables.net-dt": "^3.2.2",
     "datatables-rowgroup": "^1.0.3",
     "datatables-buttons": "^1.5.3",
-    "jszip": "Stuk/jszip#^3.1.5"
+    "jszip": "Stuk/jszip#^3.1.5",
+    "jquery-ui-slider": "*"
   },
   "devDependencies": {
     "chai": "^4.1.2",
     "mocha": "^5.2.0"
+  },
+  "overrides": {
+    "datatables-rowsgroup": {
+      "main": "./dataTables.rowsGroup.js"
+    },
+    "datatables-rowgroup": {
+      "main": "./js/dataTables.rowGroup.js"
+    }
   }
 }
