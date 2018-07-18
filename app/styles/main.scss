@@ -14,9 +14,13 @@ body {
   // align-items: center;
 }
 
-#source-select {
+.source-select {
   font-size: 1.3em;
   margin: 20px 0;
+  max-width: 750px;
+  & + & {
+    margin-left: 15px;
+  }
 }
 
 #title {

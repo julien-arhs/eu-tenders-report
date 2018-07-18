@@ -1,32 +1,23 @@
 function init() {
-
   // Data source
-  const files = [
-    'Agencies',
-    'European Commission',
-    'Publications office of the European Union'
-  ];
-  const sourceSelect = $('#source-select');
-  for (let value of files) {
-    sourceSelect.append($("<option>")
-      .val(value)
-      .html(value)
-    );
-  }
-  sourceSelect.on('change', event => {
-    loadReportData(event.target.value);
+  initDataSource();
+  $('#institutions-select').on('change', event => {
+    updateContractors();
+  });
+  $('#contractors-select').on('change', event => {
+    loadReportData();
   });
   const amountRange = $('#amount-range');
   $('#amount-slider').slider({
     slide: function (event, ui) {
-      amountRange.val(formatAmount(ui.values[0]) + " - " + formatAmount(ui.values[1]));
+      amountRange.val(formatAmount(ui.values[0]) + ' - ' + formatAmount(ui.values[1]));
       getTable().draw();
     }
   });
 
   // Filters
   const filters = [];
-  filters[1] = $('input#authority');
+  // filters[1] = $('input#authority');
   // filters[2] = $('input#form');
   filters[3] = $('input#notice-title');
   filters[4] = $('input#procurement-type');
@@ -68,9 +59,7 @@ function initTable() {
     dom: 'Bptip',
     columns: [
       {},
-      {
-        title: 'Contracting Authority name'
-      },
+      {},
       {},
       {
         title: 'Title of the notice'
@@ -116,7 +105,8 @@ function initTable() {
       },
       {
         targets: 1,
-        className: 'authority'
+        className: 'authority',
+        visible: false
       },
       {
         targets: 2,
@@ -149,8 +139,6 @@ function initTable() {
       }
     ],
     rowsGroup: [
-      1,
-      2,
       3,
       4,
       5,
@@ -185,7 +173,7 @@ function initTable() {
       'excel'
     ],
     pageLength: 20,
-    paging: true
+    paging: false
   });
   // Amount sorting
   $.extend($.fn.dataTableExt.oSort, {
@@ -224,8 +212,44 @@ function initTable() {
   );
 }
 
-function loadReportData(sourceId) {
-  console.log('> initTable', $.fn.DataTable.isDataTable('#report-table'))
+function initDataSource() {
+  $.ajax({
+    url: 'data/dropDownJson.json',
+  }).done(source => {
+    window.SELECT_DATA = source.institutions;
+    const institutionsSelect = $('#institutions-select');
+    for (let item of window.SELECT_DATA) {
+      institutionsSelect.append($('<option>')
+        .val(item.name)
+        .html(item.name)
+      );
+    }
+    updateContractors();
+  });
+}
+
+function updateContractors() {
+  const institutionName = $('#institutions-select').val();  
+  const institution = window.SELECT_DATA.find(item => {
+    return item.name === institutionName;
+  });
+  console.log('> updateContractors', institutionName, institution);
+  const contractorsSelect = $('#contractors-select');
+  contractorsSelect.empty();
+  if (institution) {
+    for (let item of institution.contractingBodies) {
+      contractorsSelect.append($('<option>')
+        .val(item.filename)
+        .html(item.name)
+      );
+    }
+    loadReportData();
+  }
+}
+
+function loadReportData() {
+  const fileName = $('#institutions-select').val() + '-' + $('#contractors-select').val();
+  console.log('> loadReportData', fileName)
   if ($.fn.DataTable.isDataTable('#report-table')) {
     getTable().clear().draw();
   }
@@ -233,7 +257,7 @@ function loadReportData(sourceId) {
     initTable();
   }
   $.ajax({
-    url: 'data/' + sourceId + '.json',
+    url: 'data/' + fileName + '.json',
   }).done(report => {
     initAmountSlider(report.data);
     getTable().rows.add(report.data);
@@ -259,7 +283,6 @@ function initAmountSlider(data) {
   const step = 50000;
   // Adjust max to superior step, otherwise the highest value is not included (shitty)
   max = Math.ceil(max / step) * step;
-  console.log('> FACTOR', max);
   $('#amount-slider').slider({
     range: true,
     step: step,
